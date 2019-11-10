@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import android.widget.EditText
 import android.text.TextUtils
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,12 +17,12 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
-
-
 class MainActivity : AppCompatActivity(), View.OnClickListener{
 
     private var flag=""
     private var num:String=""
+    var result:Double = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -66,13 +65,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 flag = ""
             }
             else {
+                if(result!=0.0&&value!="+"&&value!="－"&&value!="÷"&&value!="×"){
+                    System.out.println(num)
+                    if(num.indexOf("+")==-1&&num.indexOf("－")==-1&&num.indexOf("÷")==-1&&num.indexOf("×")==-1){
+                        result=0.0
+                        num=""
+                        show.text=""
+                    }
+                }
                 num = num + value
                 show.text=num
             }
         }
     }
     private fun doCount(flag:String){
-        var result:Double = 0.0
+
         var w:Array<String>
         var op:Int=flag.indexOf("+")
         if(op!=-1){
